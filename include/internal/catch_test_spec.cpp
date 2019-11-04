@@ -90,7 +90,7 @@ namespace Catch {
         std::transform( m_filters.begin(), m_filters.end(), matches.begin(), [&]( Filter const& filter ){
             std::vector<TestCase const*> currentMatches;
             for( auto const& test : testCases )
-                if( isThrowSafe( test, config ) && filter.matches( test ) )
+                if( isThrowSafe( test, config ) && filter.matches( test.getTestCaseInfo() ) )
                     currentMatches.emplace_back( &test );
             return FilterMatch{ filter.name(), currentMatches };
         } );

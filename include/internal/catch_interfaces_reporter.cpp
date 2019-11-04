@@ -76,7 +76,7 @@ namespace Catch {
                                    std::string const& _stdOut,
                                    std::string const& _stdErr,
                                    bool _aborting )
-    : testInfo( _testInfo ),
+    : testInfo( &_testInfo ),
         totals( _totals ),
         stdOut( _stdOut ),
         stdErr( _stdErr ),
@@ -148,7 +148,8 @@ namespace Catch {
             Catch::cout() << "All available test cases:\n";
         }
 
-        for (auto const& testCaseInfo : tests) {
+        for (auto const& test : tests) {
+            auto const& testCaseInfo = test.getTestCaseInfo();
             Colour::Code colour = testCaseInfo.isHidden()
                 ? Colour::SecondaryText
                 : Colour::None;

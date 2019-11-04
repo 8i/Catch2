@@ -15,7 +15,6 @@
 #include <vector>
 #include <set>
 #include <algorithm>
-#include <ios>
 
 namespace Catch {
 
@@ -36,23 +35,27 @@ namespace Catch {
     public:
         virtual ~TestRegistry() = default;
 
-        virtual void registerTest( TestCase const& testCase );
+        virtual void registerTest( std::unique_ptr<TestCaseInfo> testInfo, std::unique_ptr<ITestInvoker> testInvoker );
 
         std::vector<TestCase> const& getAllTests() const override;
         std::vector<TestCase> const& getAllTestsSorted( IConfig const& config ) const override;
 
     private:
-        std::vector<TestCase> m_functions;
+        std::vector<std::unique_ptr<TestCaseInfo>> m_infos;
+        std::vector<std::unique_ptr<ITestInvoker>> m_invokers;
+        std::vector<TestCase> m_handles;
         mutable RunTests::InWhatOrder m_currentSortOrder = RunTests::InDeclarationOrder;
         mutable std::vector<TestCase> m_sortedFunctions;
     };
 
     ///////////////////////////////////////////////////////////////////////////
 
-    class TestInvokerAsFunction : public ITestInvoker {
-        void(*m_testAsFunction)();
+    class TestInvokerAsFunction final : public ITestInvoker {
+        using TestType = void(*)();
+        TestType m_testAsFunction;
     public:
-        TestInvokerAsFunction( void(*testAsFunction)() ) noexcept;
+        TestInvokerAsFunction(TestType testAsFunction) noexcept:
+            m_testAsFunction(testAsFunction) {}
 
         void invoke() const override;
     };

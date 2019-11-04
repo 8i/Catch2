@@ -15,7 +15,7 @@
 namespace Catch {
 
     struct AssertionInfo {
-        AssertionInfo() = delete;
+        //AssertionInfo() = delete;
 
         StringRef macroName;
         SourceLineInfo lineInfo;

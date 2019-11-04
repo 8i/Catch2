@@ -128,7 +128,7 @@ namespace Catch {
         TestCaseStats& operator = ( TestCaseStats && )     = default;
         virtual ~TestCaseStats();
 
-        TestCaseInfo testInfo;
+        TestCaseInfo const * testInfo;
         Totals totals;
         std::string stdOut;
         std::string stdErr;
@@ -217,7 +217,7 @@ namespace Catch {
         virtual void noMatchingTestCases( std::string const& spec ) = 0;
 
         virtual void reportInvalidArguments(std::string const&) {}
-        
+
         virtual void testRunStarting( TestRunInfo const& testRunInfo ) = 0;
         virtual void testGroupStarting( GroupInfo const& groupInfo ) = 0;
 
