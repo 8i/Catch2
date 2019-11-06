@@ -149,7 +149,7 @@ set( EXTRA_TEST_BINARIES
 
 # Shared config
 foreach( test ${EXTRA_TEST_BINARIES} )
-    set_property( TARGET ${test} PROPERTY CXX_STANDARD 11 )
+    set_property( TARGET ${test} PROPERTY CXX_STANDARD 14 )
     set_property( TARGET ${test} PROPERTY CXX_STANDARD_REQUIRED ON )
     set_property( TARGET ${test} PROPERTY CXX_EXTENSIONS OFF )
     target_include_directories( ${test} PRIVATE ${SINGLE_INCLUDE_PATH} )
