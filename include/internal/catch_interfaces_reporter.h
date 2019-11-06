@@ -250,7 +250,7 @@ namespace Catch {
 
         // Listing support
         virtual void listReporters(std::vector<ReporterDescription> const& descriptions, Config const& config);
-        virtual void listTests(std::vector<TestCase> const& tests, Config const& config);
+        virtual void listTests(std::vector<TestCaseHandle> const& tests, Config const& config);
         virtual void listTags(std::vector<TagInfo> const& tags, Config const& config);
 
     };

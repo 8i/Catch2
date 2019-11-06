@@ -57,11 +57,11 @@ namespace Catch {
         SpecialProperties properties;
     };
 
-    class TestCase {
+    class TestCaseHandle {
         TestCaseInfo* m_info;
         ITestInvoker* m_invoker;
     public:
-        TestCase(TestCaseInfo* info, ITestInvoker* invoker) :
+        TestCaseHandle(TestCaseInfo* info, ITestInvoker* invoker) :
             m_info(info), m_invoker(invoker) {}
 
         void invoke() const {
@@ -70,8 +70,8 @@ namespace Catch {
 
         TestCaseInfo const& getTestCaseInfo() const;
 
-        bool operator== ( TestCase const& rhs ) const;
-        bool operator < ( TestCase const& rhs ) const;
+        bool operator== ( TestCaseHandle const& rhs ) const;
+        bool operator < ( TestCaseHandle const& rhs ) const;
     };
 
     std::unique_ptr<TestCaseInfo> makeTestCaseInfo(  std::string const& className,

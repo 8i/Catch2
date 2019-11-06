@@ -141,7 +141,7 @@ namespace Catch {
         Catch::cout() << std::endl;
     }
 
-    void IStreamingReporter::listTests(std::vector<TestCase> const& tests, Config const& config) {
+    void IStreamingReporter::listTests(std::vector<TestCaseHandle> const& tests, Config const& config) {
         if (config.hasTestFilters())
             Catch::cout() << "Matching test cases:\n";
         else {

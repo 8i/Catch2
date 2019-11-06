@@ -15,7 +15,7 @@
 
 namespace Catch {
 
-    class TestCase;
+    class TestCaseHandle;
     struct TestCaseInfo;
     struct ITestCaseRegistry;
     struct IExceptionTranslatorRegistry;

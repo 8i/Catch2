@@ -108,7 +108,7 @@ namespace Catch {
             }
 
         private:
-            using Tests = std::set<TestCase const*>;
+            using Tests = std::set<TestCaseHandle const*>;
 
             std::shared_ptr<Config> m_config;
             RunContext m_context;

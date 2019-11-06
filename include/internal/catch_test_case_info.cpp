@@ -155,17 +155,17 @@ namespace Catch {
     }
 
 
-    bool TestCase::operator == ( TestCase const& rhs ) const {
+    bool TestCaseHandle::operator == ( TestCaseHandle const& rhs ) const {
         return m_invoker == rhs.m_invoker
             && m_info->name == rhs.m_info->name
             && m_info->className == rhs.m_info->className;
     }
 
-    bool TestCase::operator < ( TestCase const& rhs ) const {
+    bool TestCaseHandle::operator < ( TestCaseHandle const& rhs ) const {
         return m_info->name < rhs.m_info->name;
     }
 
-    TestCaseInfo const& TestCase::getTestCaseInfo() const {
+    TestCaseInfo const& TestCaseHandle::getTestCaseInfo() const {
         return *m_info;
     }
 

@@ -18,18 +18,18 @@
 
 namespace Catch {
 
-    class TestCase;
+    class TestCaseHandle;
     struct IConfig;
 
-    std::vector<TestCase> sortTests( IConfig const& config, std::vector<TestCase> const& unsortedTestCases );
+    std::vector<TestCaseHandle> sortTests( IConfig const& config, std::vector<TestCaseHandle> const& unsortedTestCases );
 
-    bool isThrowSafe( TestCase const& testCase, IConfig const& config );
-    bool matchTest( TestCase const& testCase, TestSpec const& testSpec, IConfig const& config );
+    bool isThrowSafe( TestCaseHandle const& testCase, IConfig const& config );
+    bool matchTest( TestCaseHandle const& testCase, TestSpec const& testSpec, IConfig const& config );
 
-    void enforceNoDuplicateTestCases( std::vector<TestCase> const& functions );
+    void enforceNoDuplicateTestCases( std::vector<TestCaseHandle> const& functions );
 
-    std::vector<TestCase> filterTests( std::vector<TestCase> const& testCases, TestSpec const& testSpec, IConfig const& config );
-    std::vector<TestCase> const& getAllTestCasesSorted( IConfig const& config );
+    std::vector<TestCaseHandle> filterTests( std::vector<TestCaseHandle> const& testCases, TestSpec const& testSpec, IConfig const& config );
+    std::vector<TestCaseHandle> const& getAllTestCasesSorted( IConfig const& config );
 
     class TestRegistry : public ITestCaseRegistry {
     public:
@@ -37,15 +37,15 @@ namespace Catch {
 
         virtual void registerTest( std::unique_ptr<TestCaseInfo> testInfo, std::unique_ptr<ITestInvoker> testInvoker );
 
-        std::vector<TestCase> const& getAllTests() const override;
-        std::vector<TestCase> const& getAllTestsSorted( IConfig const& config ) const override;
+        std::vector<TestCaseHandle> const& getAllTests() const override;
+        std::vector<TestCaseHandle> const& getAllTestsSorted( IConfig const& config ) const override;
 
     private:
         std::vector<std::unique_ptr<TestCaseInfo>> m_infos;
         std::vector<std::unique_ptr<ITestInvoker>> m_invokers;
-        std::vector<TestCase> m_handles;
+        std::vector<TestCaseHandle> m_handles;
         mutable RunTests::InWhatOrder m_currentSortOrder = RunTests::InDeclarationOrder;
-        mutable std::vector<TestCase> m_sortedFunctions;
+        mutable std::vector<TestCaseHandle> m_sortedFunctions;
     };
 
     ///////////////////////////////////////////////////////////////////////////
