@@ -120,22 +120,23 @@ namespace Catch {
             for (auto const& testCase : getAllTestCasesSorted(config)) {
                 // Yeah, sue me. This will be removed soon.
                 auto& testInfo = const_cast<TestCaseInfo&>(testCase.getTestCaseInfo());
+                testInfo.addFilenameTag();
 
-                std::string filename = testInfo.lineInfo.file;
-                auto lastSlash = filename.find_last_of("\\/");
-                if (lastSlash != std::string::npos) {
-                    filename.erase(0, lastSlash);
-                    filename[0] = '#';
-                }
+                //std::string filename = testInfo.lineInfo.file;
+                //auto lastSlash = filename.find_last_of("\\/");
+                //if (lastSlash != std::string::npos) {
+                //    filename.erase(0, lastSlash);
+                //    filename[0] = '#';
+                //}
 
-                auto lastDot = filename.find_last_of('.');
-                if (lastDot != std::string::npos) {
-                    filename.erase(lastDot);
-                }
+                //auto lastDot = filename.find_last_of('.');
+                //if (lastDot != std::string::npos) {
+                //    filename.erase(lastDot);
+                //}
 
-                auto tags = testInfo.tags;
-                tags.push_back(std::move(filename));
-                setTags(testInfo, tags);
+                //auto tags = testInfo.tags;
+                //tags.push_back(std::move(filename));
+                //setTags(testInfo, tags);
             }
         }
 

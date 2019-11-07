@@ -22,39 +22,52 @@
 
 namespace Catch {
 
+    struct Tag {
+        Tag(StringRef original_, StringRef lowerCased_):
+            original(original_), lowerCased(lowerCased_)
+        {}
+        StringRef original, lowerCased;
+    };
+
     struct ITestInvoker;
 
+    enum class TestCaseProperties : uint8_t {
+        None = 0,
+        IsHidden = 1 << 1,
+        ShouldFail = 1 << 2,
+        MayFail = 1 << 3,
+        Throws = 1 << 4,
+        NonPortable = 1 << 5,
+        Benchmark = 1 << 6
+    };
+
+
     struct TestCaseInfo : NonCopyable {
-        enum SpecialProperties{
-            None = 0,
-            IsHidden = 1 << 1,
-            ShouldFail = 1 << 2,
-            MayFail = 1 << 3,
-            Throws = 1 << 4,
-            NonPortable = 1 << 5,
-            Benchmark = 1 << 6
-        };
 
-        TestCaseInfo(   std::string const& _name,
-                        std::string const& _className,
-                        std::vector<std::string> const& _tags,
-                        SourceLineInfo const& _lineInfo );
-
-        friend void setTags( TestCaseInfo& testCaseInfo, std::vector<std::string> tags );
+        TestCaseInfo(std::string const& _className,
+                     NameAndTags const& _tags,
+                     SourceLineInfo const& _lineInfo);
 
         bool isHidden() const;
         bool throws() const;
         bool okToFail() const;
         bool expectedToFail() const;
 
+        // Adds the tag(s) with test's filename (for the -# flag)
+        void addFilenameTag();
+
+
         std::string tagsAsString() const;
 
         std::string name;
         std::string className;
-        std::vector<std::string> tags;
-        std::vector<std::string> lcaseTags;
+    private:
+        // This is the backing storage for the tags vector.
+        std::string backingTags, backingLCaseTags;
+    public:
+        std::vector<Tag> tags;
         SourceLineInfo lineInfo;
-        SpecialProperties properties;
+        TestCaseProperties properties = TestCaseProperties::None;
     };
 
     class TestCaseHandle {
